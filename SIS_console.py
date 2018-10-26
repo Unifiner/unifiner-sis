@@ -1,13 +1,15 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 class SIS_console:
 	usr = 0
 	pwd = 0
 	driver = 0
 	url = 'https://sis.rpi.edu/rss/twbkwbis.P_WWWLogin'
-	def __init__(self, usr, pwd):
+	def __init__(self, usr = 0, pwd = 0):
 		self.usr = usr
 		self.pwd = pwd
 		self.driver = webdriver.Chrome()
@@ -28,6 +30,11 @@ class SIS_console:
 		self.driver.find_element_by_link_text('Student Menu').click()
 		self.driver.find_element_by_link_text('View CAPP Reports').click()
 		self.driver.find_element_by_xpath("//body/div/form/input").click()
+#		TODO FIGURE OUT HOW TO DOWNLOAD A PDF OF THE PAGE FOR CAPP REPORT
+		if input("Enter (y|n) for whether you want your CAPP Report downloaded!") == "y":
+			target_path = input("Enter your path which of your file will be downloaded to:")
+			self.driver.save_screenshot('capp_report.png')
+			self.driver.save_screenshot(target_path)
 		
 	def add_class(self, CRNs):
 		self.driver.find_element_by_link_text('Student Menu').click()
@@ -44,40 +51,3 @@ class SIS_console:
 		
 		submit_changes = self.driver.find_element_by_xpath('//body/div/form/input[@value="Submit Changes"]')
 		submit_changes.click()
-		
-#		
-#CRN = [11111, 22222, 33333]  # Enter the CRNs of the courses
-#
-#user = input('Please enter your RIN here ==> ')  # Enter your RIN here
-#pwd = input('Please enter your password here ==> ')   # Enter your password here
-#
-#
-#input('When you are ready, press ENTER to start')
-#
-## open chrome and goto the sis login page
-#driver = webdriver.Chrome()
-#driver.get(url)
-#
-#
-#
-#
-## goto register, add, or drop (rad) menu
-#rad = driver.find_element_by_link_text('Register, Add or Drop')
-#rad.click()
-#
-## select semester from dropdown <select>
-#semester = Select(driver.find_element_by_id('term_id'))
-#semester.select_by_visible_text('Fall 2018')  # TODO: change to Spring 2019
-#submit_button = driver.find_element_by_xpath("//body/div/form/input")  # submit the request
-#submit_button.click()
-#
-## input CRNs
-#i = 0
-#while i < len(CRN):
-#	elem_id = 'crn_id' + str(i + 1)
-#	input_box = driver.find_element_by_id(elem_id)
-#	input_box.send_keys(str(CRN[i]))
-#	i += 1
-#
-#submit_changes = driver.find_element_by_xpath('//body/div/form/input[@value="Submit Changes"]')
-#submit_changes.click()
