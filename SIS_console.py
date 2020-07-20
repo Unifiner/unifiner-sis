@@ -7,7 +7,7 @@ from selenium.webdriver.common.keys import Keys
 import sys
 import argparse
 
-def	login(driver, url, pwd):
+def	login(driver, url, usr, pwd):
 	
 	driver.get(url)
 	
@@ -64,9 +64,10 @@ def main():
 	driver = webdriver.Chrome()
 	url = 'https://sis.rpi.edu/rss/twbkwbis.P_WWWLogin'
 	
+	# parse command line arguments
 	arguments = parseParameter()
 	
-	login(driver, arguments.usr, arguments.pwd)
+	login(driver, url, arguments.usr, arguments.pwd)
 	
 	capp_report(driver)
 	
