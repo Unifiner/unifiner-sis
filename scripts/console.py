@@ -80,7 +80,6 @@ def main():
 
 	login(driver, url, arguments.usr, arguments.pwd)
 	
-	
 #	capp_report(driver)
 	
 	add_class(driver, arguments.crns)
